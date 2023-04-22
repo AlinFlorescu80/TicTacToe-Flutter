@@ -22,7 +22,7 @@ class _GamePageState extends State<GamePage> {
   void initializeGame() {
     currentPlayer = PLAYER_X;
     gameEnd = false;
-    occupied = ["", "", "", "", "", "", "", "", ""];
+    occupied = List.filled(9, "");
   }
 
   @override
@@ -47,7 +47,7 @@ class _GamePageState extends State<GamePage> {
         const Text(
           'Tic Tac Toe',
           style: TextStyle(
-            color: Colors.green,
+            color: Colors.blue,
             fontSize: 32,
             fontWeight: FontWeight.bold,
           ),
@@ -68,7 +68,7 @@ class _GamePageState extends State<GamePage> {
     return Container(
       height: MediaQuery.of(context).size.height / 2,
       width: MediaQuery.of(context).size.height / 2,
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(10),
       child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3),
@@ -96,7 +96,7 @@ class _GamePageState extends State<GamePage> {
         color: occupied[index].isEmpty
             ? Colors.black26
             : occupied[index] == PLAYER_X
-                ? Colors.blue
+                ? Colors.greenAccent
                 : Colors.orange,
         margin: const EdgeInsets.all(8),
         child: Center(
@@ -110,12 +110,22 @@ class _GamePageState extends State<GamePage> {
   }
 
   _restartButton(){
-    return ElevatedButton(onPressed: (){
-      setState(() {
-        initializeGame();
-      });
-
-    }, child: const Text("Restart Game"));
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: ElevatedButton(onPressed: (){
+        setState(() {
+          initializeGame();
+        },
+        );
+      }, child: const Text("Restart",
+      style: TextStyle(
+      fontSize: 25),),
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(300, 60),
+          backgroundColor: Colors.blue,
+        ),
+      ),
+    );
   }
 
   changeTurn() {
